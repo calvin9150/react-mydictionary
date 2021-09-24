@@ -34,7 +34,7 @@ const Title = styled.div`
 
 const List = styled.div`
   width: 90%;
-  height: 200px;
+  min-height: 200px;
   margin: 20px 0;
   padding: 20px;
   background-color: #324069;

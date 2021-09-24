@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import styled from "styled-components";
+import { addWord } from "../redux/modules/words";
 
 const Conatiner = styled.div`
   display: flex;
@@ -64,8 +66,24 @@ const SubmitBtn = styled.button`
 
 const Edit = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const wordInput = useRef();
+  const contentInput = useRef();
+  const exampleInput = useRef();
 
   const onClickCancelBtn = () => {
+    history.push("/");
+  };
+
+  const onClickSubmit = () => {
+    dispatch(
+      addWord({
+        word: wordInput.current.value,
+        content: contentInput.current.value,
+        example: exampleInput.current.value,
+      })
+    );
     history.push("/");
   };
 
@@ -77,12 +95,12 @@ const Edit = () => {
         </Title>
         <InputWrapper>
           단어
-          <Input />
+          <Input type="text" ref={wordInput} />
           설명
-          <Input />
+          <Input type="text" ref={contentInput} />
           예문
-          <Input />
-          <SubmitBtn>제출하기</SubmitBtn>
+          <Input type="text" ref={exampleInput} />
+          <SubmitBtn onClick={onClickSubmit}>제출하기</SubmitBtn>
         </InputWrapper>
       </Layout>
     </Conatiner>
