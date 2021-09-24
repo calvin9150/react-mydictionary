@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 
@@ -50,12 +51,16 @@ const Word = styled.div`
   font-size: 2em;
 `;
 const Content = styled.div`
-  font-size: 1.5em;
+  font-size: 1.2em;
+  margin: 1em 0;
 `;
 const Example = styled.div``;
 
 const Home = () => {
   const history = useHistory();
+
+  const words = useSelector((state) => state.words.words);
+  console.log(words);
 
   const onClickPlusBtn = () => {
     history.push("/edit");
@@ -67,17 +72,13 @@ const Home = () => {
         <Title>
           My dictionary <Plus onClick={onClickPlusBtn}>☑️</Plus>
         </Title>
-        <List>
-          <Word>아 좋습니다</Word>
-          <Content>랄로</Content>
-          <Example>봉춤을춘다</Example>
-        </List>
-        <List />
-        <List />
-        <List />
-        <List />
-        <List />
-        <List />
+        {words.map((v, i) => (
+          <List key={i}>
+            <Word>{v.word}</Word>
+            <Content>{v.content}</Content>
+            <Example>{v.example}</Example>
+          </List>
+        ))}
       </Layout>
     </Conatiner>
   );
