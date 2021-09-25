@@ -1,7 +1,11 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { db } from "../firebase";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import styled from "styled-components";
+import { Firestore } from "@firebase/firestore";
+import { collection, getDoc, getDocs } from "firebase/firestore";
+import { loadWordsFB } from "../redux/modules/words";
 
 const Conatiner = styled.div`
   display: flex;
@@ -54,10 +58,13 @@ const Content = styled.div`
   font-size: 1.2em;
   margin: 1em 0;
 `;
-const Example = styled.div``;
+const Example = styled.div`
+  color: #07abd4;
+`;
 
 const Home = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const words = useSelector((state) => state.words.words);
   console.log(words);
@@ -65,6 +72,12 @@ const Home = () => {
   const onClickPlusBtn = () => {
     history.push("/edit");
   };
+
+  useEffect(() => {
+    dispatch(loadWordsFB());
+  }, []);
+
+  // const words_list = Firestore.collection("dictionary");
 
   return (
     <Conatiner>

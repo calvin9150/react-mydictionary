@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import styled from "styled-components";
-import { addWord } from "../redux/modules/words";
+import { addWord, addWordFB } from "../redux/modules/words";
 
 const Conatiner = styled.div`
   display: flex;
@@ -78,7 +78,7 @@ const Edit = () => {
 
   const onClickSubmit = () => {
     dispatch(
-      addWord({
+      addWordFB({
         word: wordInput.current.value,
         content: contentInput.current.value,
         example: exampleInput.current.value,
